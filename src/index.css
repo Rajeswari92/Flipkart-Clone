@@ -1,0 +1,5 @@
+.logo {
+  display: flex;
+  min-width: 137px;
+  justify-content: flex-end;
+}
