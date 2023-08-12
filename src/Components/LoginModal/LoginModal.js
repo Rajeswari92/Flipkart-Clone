@@ -72,7 +72,8 @@ const LoginModal = ({ isOpen, setIsOpen }) => {
             <button className="Login-btn" onClick={signup}>
               Signup
             </button>
-          )}
+          )} 
+          
           {loginType ? (
             <p className="login-signup" onClick={() => setLoginType(false)}>
               New to Flipkart? Create an account

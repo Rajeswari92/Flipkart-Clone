@@ -10,6 +10,7 @@ import supabase from "../../supabase";
 import { removeUser } from "../../slices/userSlices";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+
   const user = useSelector((state) => state.userData.user);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -18,7 +19,7 @@ const Navbar = () => {
     }
   }, [user]);
 
-  const signOut = async () => {
+  const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
     if (!error) {
       dispatch(removeUser());
@@ -46,7 +47,9 @@ const Navbar = () => {
             </button>
           </div>
           {user ? (
-            <h3 onClick={signOut}>@{user?.email.slice(0, 10)}</h3>
+            <h3 className="navbar-btn" onClick={handleLogout}>
+              Logout
+            </h3>
           ) : (
             <button className="navbar-btn" onClick={() => setIsOpen(true)}>
               Login

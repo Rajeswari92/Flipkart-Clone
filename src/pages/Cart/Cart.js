@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Cart.css";
+import LoginModal from "../../Components/LoginModal/LoginModal";
 import { removeCart } from "../../slices/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 const Cart = () => {
   const [active, setActive] = useState(1);
+  const [isOpen, setIsOpen] = useState(false);
+
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cartData.cart);
   const user = useSelector((state) => state.userData.user);
@@ -11,6 +14,11 @@ const Cart = () => {
     dispatch(removeCart(id));
   };
   console.log(cartItems);
+  useEffect(() => {
+    if (user) {
+      setIsOpen(false);
+    }
+  }, [user]);
   return (
     <div className="Cart">
       <div className="Cart-tabs">
@@ -65,10 +73,16 @@ const Cart = () => {
             <p className="CartitemsNull-des">
               Login to see the items you added previously
             </p>
-            <button className="CartitemsNull-btn">Login</button>
+            <button
+              className="CartitemsNull-btn"
+              onClick={() => setIsOpen(true)}
+            >
+              Login
+            </button>
           </div>
         </div>
       )}
+      <LoginModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
   );
 };
